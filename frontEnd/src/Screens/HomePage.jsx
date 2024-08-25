@@ -2,16 +2,20 @@ import { Link, useNavigate } from "react-router-dom";
 import dp from "../assets/dp.png";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loader from "./Loader";
 function HomePage() {
   const [recentCourses, getRecentCourses] = useState([]);
+  const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
   const getRecent = async () => {
-    try{
+    try {
+      setLoader(true);
       const response = await axios.get('https://for-the-love-of-tech.onrender.com/api/v1/course/get-recent');
       console.log(response.data);
       getRecentCourses(response.data);
+      setLoader(false);
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
   }
@@ -54,11 +58,11 @@ function HomePage() {
             </div>
           </div>
         </section>
-        <section className="w-full py-4 sm:py-24 lg:py-4 bg-gray-900 h-screen">
-            <h1 className="text lg font-medium text-center tracking-tighter sm:text-5xl xl:text-3xl mb-1 mt-10" >Home for The Tech Lovers</h1>
+        <section className="w-full py-4 sm:py-24 lg:py-4 bg-gray-900">
+          <h1 className="text lg font-medium text-center tracking-tighter sm:text-5xl xl:text-3xl mb-1 mt-10" >Home for The Tech Lovers</h1>
           <nav className=" px-4 md:px-6 flex flex-wrap justify-center">
             <button className="px-4 bg-white m-4 w-40 h-10 text-black rounded-lg hover:bg-orange-400 hover:text-white transition-colors duration-300"
-            onClick={() => navigate('/courses')}
+              onClick={() => navigate('/courses')}
             >
               <h1>Courses</h1>
             </button>
@@ -82,25 +86,28 @@ function HomePage() {
                 <h1>Blogs</h1>
               </button>
             </a>
-            <hr className="my-4 mb-10" style={{borderWidth:2, width:'100%' }}/>
+            <hr className="my-4 mb-10" style={{ borderWidth: 2, width: '100%' }} />
           </nav>
           <div className="px-6 md:px-6">
-            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-4 justify-center items-center">
-              {recentCourses.map((course) => (
-                <button className="rounded-lg bg-gray-950 p-6 shadow-sm" key={course._id} onClick={() => navigate(`/view-course?courseId=${course.courseName}`)}>
-                  <img
-                    src={course.coverImage}
-                    width="600"
-                    alt="Course Image"
-                    className="mx-auto aspect-video overflow-hidden rounded-xl object-cover"
-                  />
-                  <div className="mt-4 space-y-2">
-                    <h3 className="text-xl font-bold text-left">{course.courseName}</h3>
-                    <p className="text-gray-400 text-left">{course.description.substr(0,200)}...</p>
-                  </div>
-              </button>
-              ))}
-            </div>
+            {loader ? (<div className="mt-10 flex justify-center pb-10 pt-10">
+              <Loader />
+            </div>)
+              : (<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-4 justify-center items-center">
+                {recentCourses.map((course) => (
+                  <button className="rounded-lg bg-gray-950 p-6 shadow-sm" key={course._id} onClick={() => navigate(`/view-course?courseId=${course.courseName}`)}>
+                    <img
+                      src={course.coverImage}
+                      width="600"
+                      alt="Course Image"
+                      className="mx-auto aspect-video overflow-hidden rounded-xl object-cover"
+                    />
+                    <div className="mt-4 space-y-2">
+                      <h3 className="text-xl font-bold text-left">{course.courseName}</h3>
+                      <p className="text-gray-400 text-left">{course.description.substr(0, 200)}...</p>
+                    </div>
+                  </button>
+                ))}
+              </div>)}
           </div>
         </section>
         <section className="w-full py-12 sm:py-24 lg:py-32 mx-auto">
@@ -110,7 +117,7 @@ function HomePage() {
                 <div className="space-y-2">
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Us</h2>
                   <p className="max-w-[600px] text-gray-400 md:text-xl">
-                  Our goal is to build a community of developers who are passionate about coding and building cool stuff. We believe that a lot can be achieved when great minds work together and our discord is like a coding hostel for developers.
+                    Our goal is to build a community of developers who are passionate about coding and building cool stuff. We believe that a lot can be achieved when great minds work together and our discord is like a coding hostel for developers.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
