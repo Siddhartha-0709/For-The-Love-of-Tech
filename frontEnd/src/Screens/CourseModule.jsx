@@ -11,8 +11,8 @@ const CourseModules = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const courseName = urlParams.get('courseId') || 'Object Oriented Programming'; // Fallback to a default course name
             setCourseName(courseName);
-            const response = await axios.get(`http://localhost:4000/api/v1/video/getbycourse/${encodeURIComponent(courseName)}`);
-            console.log(`http://localhost:4000/api/v1/video/getbycourse/${encodeURIComponent(courseName)}`);
+            const response = await axios.get(`https://for-the-love-of-tech.onrender.com/api/v1/video/getbycourse/${encodeURIComponent(courseName)}`);
+            console.log(`https://for-the-love-of-tech.onrender.com/api/v1/video/getbycourse/${encodeURIComponent(courseName)}`);
             console.log(response.data);
             setModules(response.data.videos);
             setCourse(response.data.course);

@@ -23,7 +23,7 @@ const Upload = () => {
     e.preventDefault();
     console.log('Form Data:', formData);
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/video/upload', formData);
+      const response = await axios.post('https://for-the-love-of-tech.onrender.com/api/v1/video/upload', formData);
       console.log('Upload response:', response.data);
     } catch (error) {
       console.error('Upload error:', error);

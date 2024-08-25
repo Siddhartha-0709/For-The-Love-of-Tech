@@ -7,7 +7,7 @@ function HomePage() {
   const navigate = useNavigate();
   const getRecent = async () => {
     try{
-      const response = await axios.get('http://localhost:4000/api/v1/course/get-recent');
+      const response = await axios.get('https://for-the-love-of-tech.onrender.com/api/v1/course/get-recent');
       console.log(response.data);
       getRecentCourses(response.data);
     }

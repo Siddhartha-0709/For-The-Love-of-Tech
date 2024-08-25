@@ -7,7 +7,7 @@ const CourseListing = () => {
   const navigate = useNavigate();
 
   const getCourse = async () => {
-    const response = await axios.get(`http://localhost:4000/api/v1/course/get`);
+    const response = await axios.get(`https://for-the-love-of-tech.onrender.com/api/v1/course/get`);
     setCourses(response.data);
   }
 
